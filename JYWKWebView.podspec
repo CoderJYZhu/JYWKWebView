@@ -7,7 +7,7 @@ s.homepage     = "https://github.com/CoderJYZhu/JYWKWebView"
 s.license      = { :type => "MIT", :file => "LICENSE" }
 s.author       = { "某天" => "505340739@qq.com" }
 s.source       = { :git => "https://github.com/CoderJYZhu/JYWKWebView.git", :tag => s.version }
-s.source_files = "JYWKWebView/JYWKWebView.h"
+s.source_files = "JYWKWebView/*.{h,m}"
 s.requires_arc = true
 end
 
