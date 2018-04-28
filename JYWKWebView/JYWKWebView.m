@@ -1,6 +1,5 @@
 //
 //  JYWKWebView.h
-//  test
 //
 //  Created by hollysmary on 2018/4/28.
 //  Copyright © 2018年 Hollysmary. All rights reserved.
@@ -8,8 +7,6 @@
 
 #import "JYWKWebView.h"
 #import <WebKit/WebKit.h>
-
-
 
 @interface JYWKWebView () <WKNavigationDelegate, WKUIDelegate>
 /// WKWebView
@@ -134,6 +131,12 @@ static CGFloat const progressViewHeight = 2;
     }
     
     self.progressView.alpha = 0.0;
+}
+
+/** 加载 url */
+- (void)loadUrlString:(NSString *)urlString
+{
+    [self.wkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
 }
 
 /// 加载 web

@@ -1,6 +1,6 @@
 //
+//  代码地址: https://github.com/CoderJYZhu/JYWKWebView
 //  JYWKWebView.h
-//  test
 //
 //  Created by hollysmary on 2018/4/28.
 //  Copyright © 2018年 Hollysmary. All rights reserved.
@@ -8,9 +8,8 @@
 //  如果 self.navigationController.navigationBar.translucent = NO；或者导航栏不存在; 那么 JYWKWebView 的 isNavigationBarOrTranslucent属性 必须设置 NO)
 
 #import <UIKit/UIKit.h>
+
 @class JYWKWebView;
-
-
 
 @protocol JYWKWebViewDelegate <NSObject>
 @optional
@@ -38,9 +37,10 @@
 /** 导航栏存在且有穿透效果(默认导航栏存在且有穿透效果) */
 @property (nonatomic, assign) BOOL isNavigationBarOrTranslucent;
 
-
 /** 类方法创建 JYWKWebView */
 + (instancetype)webViewWithFrame:(CGRect)frame;
+/** 加载 url */
+- (void)loadUrlString:(NSString *)urlString;
 /** 加载 web */
 - (void)loadRequest:(NSURLRequest *)request;
 /** 加载 HTML */
