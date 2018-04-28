@@ -1,8 +1,8 @@
 //
 //  JYWKWebView.h
 //
-//  Created by hollysmary on 2018/4/28.
-//  Copyright © 2018年 Hollysmary. All rights reserved.
+//  Created by hollysmary on 2017/4/28.
+//  Copyright © 2017年 Hollysmary. All rights reserved.
 //
 
 #import "JYWKWebView.h"

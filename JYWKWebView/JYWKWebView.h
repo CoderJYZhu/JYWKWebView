@@ -2,8 +2,8 @@
 //  代码地址: https://github.com/CoderJYZhu/JYWKWebView
 //  JYWKWebView.h
 //
-//  Created by hollysmary on 2018/4/28.
-//  Copyright © 2018年 Hollysmary. All rights reserved.
+//  Created by hollysmary on 2017/4/28.
+//  Copyright © 2017年 Hollysmary. All rights reserved.
 //  JYWKWebView 使用注意点：
 //  如果 self.navigationController.navigationBar.translucent = NO；或者导航栏不存在; 那么 JYWKWebView 的 isNavigationBarOrTranslucent属性 必须设置 NO)
 
