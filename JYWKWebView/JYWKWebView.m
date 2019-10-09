@@ -159,13 +159,15 @@ static CGFloat const progressViewHeight = 2;
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     NSString *strRequest = [navigationAction.request.URL.absoluteString stringByRemovingPercentEncoding];
-//    JYLog(@"%@",strRequest);
-    if ([strRequest rangeOfString:@"atdetail://unit/"].location != NSNotFound) {
-        decisionHandler(WKNavigationActionPolicyCancel);//不允许跳转
-        [self.delegate webView:self didSelectWithRequestStr:strRequest];
-    }else {//截获页面里面的链接点击
-        decisionHandler(WKNavigationActionPolicyAllow);//允许跳转
-    }
+    [_navigationActionPolicyCancelArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([strRequest rangeOfString:obj].location != NSNotFound) {
+            decisionHandler(WKNavigationActionPolicyCancel);//不允许跳转
+        } else {
+            decisionHandler(WKNavigationActionPolicyAllow);//允许跳转
+        }
+    }];
+    [self.delegate webView:self didSelectWithRequestStr:strRequest];
+    [self.delegate webView:self didFailLoadWithError:nil];
 }
 
 

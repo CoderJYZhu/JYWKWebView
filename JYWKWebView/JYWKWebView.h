@@ -36,7 +36,8 @@
 @property (nonatomic, copy) NSString *navigationItemTitle;
 /** 导航栏存在且有穿透效果(默认导航栏存在且有穿透效果) */
 @property (nonatomic, assign) BOOL isNavigationBarOrTranslucent;
-
+/// 拦截参数数组
+@property (nonatomic, strong) NSMutableArray *navigationActionPolicyCancelArr;
 /** 类方法创建 JYWKWebView */
 + (instancetype)webViewWithFrame:(CGRect)frame;
 /** 加载 url */
