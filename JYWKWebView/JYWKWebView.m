@@ -40,8 +40,17 @@ static CGFloat const progressViewHeight = 2;
         _wkWebView = [[WKWebView alloc] initWithFrame:self.bounds];
         _wkWebView.navigationDelegate = self;
         _wkWebView.UIDelegate = self;
+                _wkWebView.opaque = NO;
+        //        _wkWebView.scrollView.scrollEnabled = NO;
+        //        if (@available(iOS 11.0, *)) {
+        //            self.wkWebView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        //        } else {
+        //            // Fallback on earlier versions
+        //        }
         // KVO
+        // TODO:kvo监听，获得页面title和加载进度值
         [self.wkWebView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:0 context:nil];
+        [self.wkWebView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return _wkWebView;
 }
@@ -94,6 +103,15 @@ static CGFloat const progressViewHeight = 2;
             } completion:^(BOOL finished) {
                 [self.progressView setProgress:0.0 animated:NO];
             }];
+        }
+    } else if ([keyPath isEqualToString:@"title"]) {
+        if (object == self.wkWebView){
+            self.title = self.wkWebView.title;
+            if (self.delegate && [self.delegate respondsToSelector:@selector(webView:title:)]) {
+                [self.delegate webView:self title:self.wkWebView.title];
+            }
+        } else {
+            [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
         }
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -155,6 +173,8 @@ static CGFloat const progressViewHeight = 2;
 /// dealloc
 - (void)dealloc {
     [self.wkWebView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress))];
+    [self.wkWebView removeObserver:self forKeyPath:@"title"];
+
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
@@ -166,8 +186,12 @@ static CGFloat const progressViewHeight = 2;
             decisionHandler(WKNavigationActionPolicyAllow);//允许跳转
         }
     }];
-    [self.delegate webView:self didSelectWithRequestStr:strRequest];
-    [self.delegate webView:self didFailLoadWithError:nil];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(webView:didSelectWithRequestStr:)]) {
+        [self.delegate webView:self didSelectWithRequestStr:strRequest];
+    }
+    if (self.delegate && [self.delegate respondsToSelector:@selector(webView:didFailLoadWithError:)]) {
+        [self.delegate webView:self didFailLoadWithError:nil];
+    }
 }
 
 

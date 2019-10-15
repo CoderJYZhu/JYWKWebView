@@ -13,17 +13,17 @@
 
 @protocol JYWKWebViewDelegate <NSObject>
 @optional
-/** 页面开始加载时调用 */
+/// 标题
+- (void)webView:(JYWKWebView *)webView title:(NSString*)title;
+/// 页面开始加载时调用
 - (void)webViewDidStartLoad:(JYWKWebView *)webView;
-/** 内容开始返回时调用 */
+/// 内容开始返回时调用
 - (void)webView:(JYWKWebView *)webView didCommitWithURL:(NSURL *)url;
-/** 页面加载失败时调用 */
+/// 页面加载失败时调用
 - (void)webView:(JYWKWebView *)webView didFinishLoadWithURL:(NSURL *)url;
-/** 页面加载完成之后调用 */
+/// 页面加载完成之后调用
 - (void)webView:(JYWKWebView *)webView didFailLoadWithError:(NSError *)error;
-/**
- 返回截取特定点击request类型
- */
+/// 返回截取特定点击request类型
 - (void)webView:(JYWKWebView *)webView didSelectWithRequestStr:(NSString *)requestStr;
 @end
 
@@ -38,6 +38,8 @@
 @property (nonatomic, assign) BOOL isNavigationBarOrTranslucent;
 /// 拦截参数数组
 @property (nonatomic, strong) NSMutableArray *navigationActionPolicyCancelArr;
+/// 标题
+@property (nonatomic, copy) NSString *title;
 /** 类方法创建 JYWKWebView */
 + (instancetype)webViewWithFrame:(CGRect)frame;
 /** 加载 url */
